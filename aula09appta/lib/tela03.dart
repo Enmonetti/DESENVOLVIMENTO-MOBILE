@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'main.dart' show AppBottomNav;
 
 // ─────────────────────────────────────────────────────────────
 //  Tela 3 — Chat Agro IA
 // ─────────────────────────────────────────────────────────────
-class Tela3 extends StatefulWidget {
-  const Tela3({super.key});
+class tela03 extends StatefulWidget {
+  const tela03({super.key});
 
   @override
-  State<Tela3> createState() => _Tela3State();
+  State<tela03> createState() => _tela03State();
 }
 
-class _Tela3State extends State<Tela3> {
+class _tela03State extends State<tela03> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   bool _isTyping = false;
 
   final List<_ChatMessage> _messages = [
-    _ChatMessage(
-      text:
-      'Olá! Sou o Agro IA 🌱\nEstou aqui para ajudar com dúvidas sobre irrigação, cultivos, pragas e manejo do solo. Como posso te ajudar hoje?',
+    const _ChatMessage(
+      text: 'Olá! Sou o Agro IA 🌱\nEstou aqui para ajudar com dúvidas sobre irrigação, cultivos, pragas e manejo do solo. Como posso te ajudar hoje?',
       isBot: true,
       time: '08:00',
     ),
@@ -150,8 +148,7 @@ class _Tela3State extends State<Tela3> {
                 ),
               ),
               Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color(0xFF43A047).withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
@@ -242,8 +239,7 @@ class _Tela3State extends State<Tela3> {
                   ),
                   child: TextField(
                     controller: _controller,
-                    style:
-                    const TextStyle(color: Colors.white, fontSize: 14),
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
                     onChanged: (_) => setState(() {}),
                     onSubmitted: _sendMessage,
                     decoration: InputDecoration(
@@ -275,7 +271,8 @@ class _Tela3State extends State<Tela3> {
             ]),
           ),
 
-          const AppBottomNav(currentIndex: 2),
+          // Bottom Navigation - SEM const
+          AppBottomNav(currentIndex: 2),
         ],
       ),
     );
@@ -302,8 +299,7 @@ class _MessageBubble extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment:
-        isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
+        mainAxisAlignment: isBot ? MainAxisAlignment.start : MainAxisAlignment.end,
         children: [
           if (isBot) ...[
             Container(
@@ -424,15 +420,13 @@ class _TypingIndicatorState extends State<_TypingIndicator>
               return AnimatedBuilder(
                 animation: _anim,
                 builder: (_, __) {
-                  final opacity =
-                  ((_anim.value - i * 0.3).clamp(0.0, 1.0));
+                  final opacity = (_anim.value - i * 0.3).clamp(0.0, 1.0);
                   return Container(
                     margin: EdgeInsets.only(right: i < 2 ? 4 : 0),
                     width: 7,
                     height: 7,
                     decoration: BoxDecoration(
-                      color:
-                      Colors.white.withOpacity(0.3 + opacity * 0.6),
+                      color: Colors.white.withOpacity(0.3 + opacity * 0.6),
                       shape: BoxShape.circle,
                     ),
                   );
@@ -442,6 +436,111 @@ class _TypingIndicatorState extends State<_TypingIndicator>
           ),
         ),
       ]),
+    );
+  }
+}
+
+// Bottom Navigation Component (definido aqui mesmo para evitar dependência circular)
+class AppBottomNav extends StatelessWidget {
+  final int currentIndex;
+
+  const AppBottomNav({super.key, required this.currentIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF0D3D22),
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withOpacity(0.1),
+            width: 0.5,
+          ),
+        ),
+      ),
+      padding: EdgeInsets.only(
+        top: 10,
+        bottom: MediaQuery.of(context).padding.bottom + 10,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _NavButton(
+            icon: Icons.home_rounded,
+            label: 'Início',
+            isActive: currentIndex == 0,
+            onTap: () => Navigator.pop(context),
+          ),
+          _NavButton(
+            icon: Icons.sensors_rounded,
+            label: 'Sensores',
+            isActive: currentIndex == 1,
+            onTap: () => Navigator.pop(context),
+          ),
+          _NavButton(
+            icon: Icons.chat_bubble_outline_rounded,
+            label: 'Chat IA',
+            isActive: currentIndex == 2,
+            onTap: () {},
+          ),
+          _NavButton(
+            icon: Icons.eco_rounded,
+            label: 'Cultivos',
+            isActive: currentIndex == 3,
+            onTap: () => Navigator.pop(context),
+          ),
+          _NavButton(
+            icon: Icons.agriculture_rounded,
+            label: 'Equip.',
+            isActive: currentIndex == 4,
+            onTap: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NavButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isActive;
+  final VoidCallback onTap;
+
+  const _NavButton({
+    required this.icon,
+    required this.label,
+    required this.isActive,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isActive
+        ? const Color(0xFF4CAF50)
+        : Colors.white.withOpacity(0.45);
+
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        width: 60,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 22),
+            const SizedBox(height: 3),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 10,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

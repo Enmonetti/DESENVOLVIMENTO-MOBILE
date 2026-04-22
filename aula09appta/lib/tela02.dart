@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'main.dart' show AppBottomNav;
 
 // ─────────────────────────────────────────────────────────────
 //  Tela 2 — Sensores IoT
 // ─────────────────────────────────────────────────────────────
-class Tela2 extends StatefulWidget {
-  const Tela2({super.key});
+class tela02 extends StatefulWidget {
+  const tela02({super.key});
 
   @override
-  State<Tela2> createState() => _Tela2State();
+  State<tela02> createState() => _tela02State();
 }
 
-class _Tela2State extends State<Tela2> {
+class _tela02State extends State<tela02> {
   final List<_PumpData> _pumps = [
     _PumpData(id: 1, name: 'Bomba Principal', zone: 'Zona A - Soja', isOn: false),
     _PumpData(id: 2, name: 'Bomba Secundária', zone: 'Zona B - Milho', isOn: true),
@@ -22,45 +21,45 @@ class _Tela2State extends State<Tela2> {
     _SensorData(
       name: 'Solo - Zona A',
       icon: Icons.grass_rounded,
-      color: Color(0xFF2E7D32),
+      color: const Color(0xFF2E7D32),
       status: 'Ativo',
       readings: [
-        _Reading(label: 'Umidade Solo', value: '45%', icon: Icons.water_drop_rounded),
-        _Reading(label: 'Temperatura', value: '24°C', icon: Icons.thermostat_rounded),
-        _Reading(label: 'pH', value: '6.8', icon: Icons.science_rounded),
+        const _Reading(label: 'Umidade Solo', value: '45%', icon: Icons.water_drop_rounded),
+        const _Reading(label: 'Temperatura', value: '24°C', icon: Icons.thermostat_rounded),
+        const _Reading(label: 'pH', value: '6.8', icon: Icons.science_rounded),
       ],
     ),
     _SensorData(
       name: 'Atmosfera',
       icon: Icons.cloud_rounded,
-      color: Color(0xFF1565C0),
+      color: const Color(0xFF1565C0),
       status: 'Ativo',
       readings: [
-        _Reading(label: 'Temp. Ar', value: '28°C', icon: Icons.thermostat_rounded),
-        _Reading(label: 'Umidade', value: '72%', icon: Icons.water_rounded),
-        _Reading(label: 'Vento', value: '12 km/h', icon: Icons.air_rounded),
+        const _Reading(label: 'Temp. Ar', value: '28°C', icon: Icons.thermostat_rounded),
+        const _Reading(label: 'Umidade', value: '72%', icon: Icons.water_rounded),
+        const _Reading(label: 'Vento', value: '12 km/h', icon: Icons.air_rounded),
       ],
     ),
     _SensorData(
       name: 'Irrigação',
       icon: Icons.water_rounded,
-      color: Color(0xFF0277BD),
+      color: const Color(0xFF0277BD),
       status: 'Ativo',
       readings: [
-        _Reading(label: 'Fluxo', value: '18 L/min', icon: Icons.water_drop_rounded),
-        _Reading(label: 'Pressão', value: '2.4 bar', icon: Icons.speed_rounded),
-        _Reading(label: 'Volume', value: '540 L', icon: Icons.storage_rounded),
+        const _Reading(label: 'Fluxo', value: '18 L/min', icon: Icons.water_drop_rounded),
+        const _Reading(label: 'Pressão', value: '2.4 bar', icon: Icons.speed_rounded),
+        const _Reading(label: 'Volume', value: '540 L', icon: Icons.storage_rounded),
       ],
     ),
     _SensorData(
       name: 'Solo - Zona B',
       icon: Icons.grass_rounded,
-      color: Color(0xFF558B2F),
+      color: const Color(0xFF558B2F),
       status: 'Alerta',
       readings: [
-        _Reading(label: 'Umidade Solo', value: '28%', icon: Icons.water_drop_rounded),
-        _Reading(label: 'Temperatura', value: '26°C', icon: Icons.thermostat_rounded),
-        _Reading(label: 'pH', value: '7.1', icon: Icons.science_rounded),
+        const _Reading(label: 'Umidade Solo', value: '28%', icon: Icons.water_drop_rounded),
+        const _Reading(label: 'Temperatura', value: '26°C', icon: Icons.thermostat_rounded),
+        const _Reading(label: 'pH', value: '7.1', icon: Icons.science_rounded),
       ],
     ),
   ];
@@ -69,16 +68,14 @@ class _Tela2State extends State<Tela2> {
     final pump = _pumps[index];
     final ligar = !pump.isOn;
     final actionLabel = ligar ? 'LIGAR' : 'DESLIGAR';
-    final actionColor =
-    ligar ? const Color(0xFF43A047) : const Color(0xFFE53935);
+    final actionColor = ligar ? const Color(0xFF43A047) : const Color(0xFFE53935);
 
     showDialog(
       context: context,
       barrierColor: Colors.black.withOpacity(0.6),
       builder: (_) => Dialog(
         backgroundColor: const Color(0xFF1A4A2E),
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -114,8 +111,7 @@ class _Tela2State extends State<Tela2> {
               ),
               const SizedBox(height: 8),
               Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.06),
                   borderRadius: BorderRadius.circular(8),
@@ -170,8 +166,7 @@ class _Tela2State extends State<Tela2> {
                           borderRadius: BorderRadius.circular(10)),
                     ),
                     child: Text(actionLabel,
-                        style:
-                        const TextStyle(fontWeight: FontWeight.w700)),
+                        style: const TextStyle(fontWeight: FontWeight.w700)),
                   ),
                 ),
               ]),
@@ -220,8 +215,7 @@ class _Tela2State extends State<Tela2> {
                         fontWeight: FontWeight.w700)),
               ),
               Container(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color(0xFF43A047).withOpacity(0.2),
                   borderRadius: BorderRadius.circular(20),
@@ -302,7 +296,8 @@ class _Tela2State extends State<Tela2> {
             ),
           ),
 
-          const AppBottomNav(currentIndex: 1),
+          // Bottom Navigation - sem const
+          AppBottomNav(currentIndex: 1),
         ],
       ),
     );
@@ -330,8 +325,7 @@ class _PumpCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isOn = pump.isOn;
-    final statusColor =
-    isOn ? const Color(0xFF43A047) : Colors.white.withOpacity(0.3);
+    final statusColor = isOn ? const Color(0xFF43A047) : Colors.white.withOpacity(0.3);
 
     return Container(
       decoration: BoxDecoration(
@@ -385,8 +379,7 @@ class _PumpCard extends StatelessWidget {
               child: AnimatedAlign(
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
-                alignment:
-                isOn ? Alignment.centerRight : Alignment.centerLeft,
+                alignment: isOn ? Alignment.centerRight : Alignment.centerLeft,
                 child: Container(
                   width: 22,
                   height: 22,
@@ -444,8 +437,7 @@ class _SensorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAlert = sensor.status == 'Alerta';
-    final statusColor =
-    isAlert ? const Color(0xFFF57C00) : const Color(0xFF43A047);
+    final statusColor = isAlert ? const Color(0xFFF57C00) : const Color(0xFF43A047);
 
     return Container(
       decoration: BoxDecoration(
@@ -536,6 +528,111 @@ class _SensorCard extends StatelessWidget {
               .toList(),
         ),
       ]),
+    );
+  }
+}
+
+// Bottom Navigation Component (definido aqui)
+class AppBottomNav extends StatelessWidget {
+  final int currentIndex;
+
+  const AppBottomNav({super.key, required this.currentIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFF0D3D22),
+        border: Border(
+          top: BorderSide(
+            color: Colors.white.withOpacity(0.1),
+            width: 0.5,
+          ),
+        ),
+      ),
+      padding: EdgeInsets.only(
+        top: 10,
+        bottom: MediaQuery.of(context).padding.bottom + 10,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _NavButton(
+            icon: Icons.home_rounded,
+            label: 'Início',
+            isActive: currentIndex == 0,
+            onTap: () => Navigator.pushReplacementNamed(context, '/'),
+          ),
+          _NavButton(
+            icon: Icons.sensors_rounded,
+            label: 'Sensores',
+            isActive: currentIndex == 1,
+            onTap: () {},
+          ),
+          _NavButton(
+            icon: Icons.chat_bubble_outline_rounded,
+            label: 'Chat IA',
+            isActive: currentIndex == 2,
+            onTap: () => Navigator.pushReplacementNamed(context, '/chat'),
+          ),
+          _NavButton(
+            icon: Icons.eco_rounded,
+            label: 'Cultivos',
+            isActive: currentIndex == 3,
+            onTap: () {},
+          ),
+          _NavButton(
+            icon: Icons.agriculture_rounded,
+            label: 'Equip.',
+            isActive: currentIndex == 4,
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _NavButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final bool isActive;
+  final VoidCallback onTap;
+
+  const _NavButton({
+    required this.icon,
+    required this.label,
+    required this.isActive,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isActive
+        ? const Color(0xFF4CAF50)
+        : Colors.white.withOpacity(0.45);
+
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: SizedBox(
+        width: 60,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 22),
+            const SizedBox(height: 3),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 10,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

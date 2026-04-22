@@ -1,5 +1,5 @@
-import 'package:aula09appta/Tela02.dart';
-import 'package:aula09appta/Tela03.dart';
+import 'package:aula09appta/tela02.dart';
+import 'package:aula09appta/tela03.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -96,7 +96,7 @@ class _MainPageState extends State<MainPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _HeroSection(),
+                  const _HeroSection(),
                   const SizedBox(height: 16),
                   _StatsCard(stats: _stats),
                   const SizedBox(height: 8),
@@ -119,12 +119,12 @@ class _MainPageState extends State<MainPage> {
               if (i == 1) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const Tela02()),
+                  MaterialPageRoute(builder: (_) => tela02()), // Removeu const
                 );
               } else if (i == 2) {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const Tela03()),
+                  MaterialPageRoute(builder: (_) => tela03()), // Removeu const
                 );
               }
             },
@@ -139,6 +139,8 @@ class _MainPageState extends State<MainPage> {
 //  Hero Section
 // ─────────────────────────────────────────────────────────────
 class _HeroSection extends StatelessWidget {
+  const _HeroSection();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -146,14 +148,12 @@ class _HeroSection extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: [
-          // Troque por Image.asset('assets/images/farm.jpg') para uso local
           Image.network(
             'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=70',
             fit: BoxFit.cover,
             errorBuilder: (_, __, ___) =>
                 Container(color: const Color(0xFF1B5E20)),
           ),
-          // Gradiente de escurecimento
           const DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -164,7 +164,6 @@ class _HeroSection extends StatelessWidget {
               ),
             ),
           ),
-          // Título
           const Positioned(
             bottom: 24,
             left: 20,
@@ -311,13 +310,11 @@ class _QuickAccessSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           ...items.map(
-        (item) => Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: _QuickButton(item: item),
-    ),
-    ).toList(),
+                (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: _QuickButton(item: item),
             ),
-          ),
+          ).toList(),
         ],
       ),
     );
@@ -332,15 +329,15 @@ class _QuickButton extends StatelessWidget {
     if (item.label == 'Sensores IoT') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const Tela02()),
+        MaterialPageRoute(builder: (_) => tela02()), // Removeu const
       );
     } else if (item.label == 'Chat Agro IA') {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (_) => const Tela03()),
+        MaterialPageRoute(builder: (_) => tela03()), // Removeu const
       );
     } else if (item.label == 'Cultivos') {
-      print('Cultivos clicado');
+      debugPrint('Cultivos clicado');
     }
   }
 
@@ -351,7 +348,7 @@ class _QuickButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         borderRadius: BorderRadius.circular(12),
-        onTap: () => _handleTap(context), // 🔥 AQUI
+        onTap: () => _handleTap(context),
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -371,8 +368,7 @@ class _QuickButton extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const Icon(Icons.chevron_right_rounded,
-                  color: Colors.white),
+              const Icon(Icons.chevron_right_rounded, color: Colors.white),
             ],
           ),
         ),
@@ -539,7 +535,7 @@ class _IrrigationAlert extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(14),
           onTap: () {
-            print("Clicou irrigação");
+            debugPrint("Clicou irrigação");
           },
           child: Ink(
             decoration: BoxDecoration(
@@ -688,8 +684,7 @@ class _NavButton extends StatelessWidget {
               style: TextStyle(
                 color: color,
                 fontSize: 10,
-                fontWeight:
-                isActive ? FontWeight.w600 : FontWeight.w400,
+                fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
               ),
             ),
           ],
